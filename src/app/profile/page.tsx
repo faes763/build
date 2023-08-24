@@ -2,8 +2,6 @@
 
 import About from "@/components/landing-sections/about"
 import Cooperation from "@/components/landing-sections/cooperations"
-import Question from "@/components/landing-sections/question"
-import Review from "@/components/landing-sections/reviews"
 import Statistic from "@/components/landing-sections/statistic"
 
 export default function Home() {
@@ -13,8 +11,7 @@ export default function Home() {
       <About/>
       <Statistic/>
       <Cooperation/>
-      <Review/>
-      <Question/>
+
     </div>
   )
 }

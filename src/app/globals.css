@@ -6,22 +6,40 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --stabilization: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html {
+  padding-right: 0!important;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+button {
+  -webkit-focus-ring-color: none!important;
+}
+
+.container {
+  margin: 0 auto;
+}
+.shadow-t-lg {
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+} 
+
+.text-big {
+  font-size: 40px;
+  font-weight: bold;
+}
+.text-animate::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: #D1D5DB;
+  border-radius: 0.75rem;
+  transition: width .4s;
+}
+
+.stabilization {
+  padding-right: var(--stabilization);
 }
