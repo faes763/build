@@ -6,10 +6,12 @@ import { useSpring, animated } from "react-spring";
 import Languages from "./menu/language";
 import Profile from "./menu/profile";
 import Notification from "./menu/notification";
-import { useBurger } from "@/store/toggle-store";
+import { useBurger, useConnectPopup } from "@/store/toggle-store";
 import ProfileInfo from "./profile-info";
 import Link from "next/link";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { LoadingButton } from "@/components/buttons/loading-button";
+import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
 
 
 const Burger = () => {
@@ -86,7 +88,7 @@ const Burger = () => {
                                     <li onClick={close}><Link href={"/"}>Строители</Link></li>
                                 </ul>
                                 
-                                <ProfileInfo menu={true}/>
+                                <StatusButton/>
                             </div>
                        
                         
@@ -104,3 +106,27 @@ const Burger = () => {
 };
 
 export default Burger;
+function StatusButton() {
+    const status = useAuthorizationStore(state => state.status);
+    const {changeOpen,isOpen} = useConnectPopup();
+    const {close}=useBurger();
+
+    console.log(status);
+    if(status == StatusAuthentication.LOADING) return(
+    <LoadingButton
+        btnClasses=" flex items-center justify-center bg-main-black text-white rounded-3xl shadow-btn p-2 outline-0 duration-200 ease-out"
+        svgClasses="animate-spin w-5 h-5"
+    />)
+    if(status == StatusAuthentication.AUTHENTICATION) return (
+        <ProfileInfo menu={true}/>
+    )
+    if(status == StatusAuthentication.NOT_AUTHENTICATION) return (
+        <button className=" bg-main-black text-white rounded-3xl py-2" 
+        onClick={()=>{
+            changeOpen(!isOpen);
+            close();
+        }}>
+            Войти
+        </button>
+    )
+}

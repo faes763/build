@@ -1,21 +1,29 @@
 'use client'
-import { useEffect, useRef } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { StatusAuthentication, useAuthorizationStore } from '@/store/authorization-store'
+import { usePath } from '@/store/get-path'
+import { geoLocation } from '@/utils'
  
 export function NavigationEvents() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const auth = useAuthorizationStore();
+ 
+  useEffect(()=>{
+    geoLocation();
+  },[])
+
   useEffect(() => {
+
     const token = localStorage.getItem('token');
-    if(token) {
+    if(!token) {
       auth.set("",StatusAuthentication.AUTHENTICATION)
     } else {
       auth.set("",StatusAuthentication.NOT_AUTHENTICATION)
-
     }
+
   }, [pathname])
  
   return null
@@ -34,8 +42,8 @@ export function AnimatedNumber({ value, inView }: { value: number, inView: boole
     const onChange = (latest: number) => {
       if (ref.current) ref.current.textContent = (+latest.toFixed(0)).toLocaleString();
     };
-    const unsubscribe = springValue.onChange(onChange);
-    return () => unsubscribe();
+    springValue.on("change", onChange);
+    return () => springValue.stop();
   }, [springValue]);
 
   return (

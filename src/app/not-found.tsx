@@ -1,19 +1,16 @@
 'use client'
 import { Dialog, Transition } from '@headlessui/react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation';
-import { Fragment, useEffect, useState } from 'react';
-import Home from './page';
-import { changeRoot } from '@/utils';
+import { Fragment } from 'react';
 import { montserrat } from './fonts';
  
 export default function NotFound() {
   const router = useRouter();
- 
+
   return (
     <>
     <Transition appear show={true} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={()=>router.push('/')}>
+      <Dialog as="div" className="relative z-10" onClose={()=>router.back()}>
       <Transition.Child
         as={Fragment}
         enter="ease-out transition-[opacity] duration-150 sm:ease-smoothly-gentle sm:duration-500"
@@ -58,7 +55,7 @@ export default function NotFound() {
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={()=>router.push('/')}
+                    onClick={()=>router.back()}
                   >
                     Перейти
                   </button>

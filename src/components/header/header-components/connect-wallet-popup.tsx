@@ -5,8 +5,10 @@ import { Fragment, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
 export default function ConnectWalletPopup() {
-    const {isOpen,close,registration,set} = useConnectPopup();
+    const {close,registration,set} = useConnectPopup();
+    const isOpen = useConnectPopup(state=>state.isOpen);
     
 
 
@@ -36,7 +38,7 @@ export default function ConnectWalletPopup() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full flex flex-col gap-y-2 max-w-[300px] p-8 transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full flex flex-col gap-y-5 px-10 max-w-[350px] p-8 transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
                 <div>
                   <XMarkIcon onClick={()=>close()} className="w-6 h-6 ml-auto cursor-pointer"/>
                   <Dialog.Title
@@ -49,7 +51,7 @@ export default function ConnectWalletPopup() {
                   <LoginForm/>
 
                   
-                  <span className="text-sm text-center underline">{registration ? "Есть аккаунт" : "Нету аккаунта?"} <a onClick={()=>{set(!registration)}} className=" cursor-pointer text-[#B400A2]">{registration ? "Войти" : "Зарегистрироваться"}</a></span>
+                  <span onClick={()=>{set(!registration)}} className="cursor-pointer text-sm text-center underline">{registration ? "Есть аккаунт" : "Нету аккаунта?"} <a  className="text-[#B400A2]">{registration ? "Войти" : "Зарегистрироваться"}</a></span>
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -83,6 +85,7 @@ const validationSchemaRegistration = Yup.object().shape({
 });
 
 const LoginForm = () => {
+  const {set} = useAuthorizationStore();
   const {close,registration} = useConnectPopup();
   const formik = useFormik({
     initialValues: 
@@ -97,7 +100,8 @@ const LoginForm = () => {
     validationSchema: registration ? validationSchemaRegistration : validationSchema,
     onSubmit: (values) => {
       console.log(values);
-      close()
+      close();
+      set("",StatusAuthentication.AUTHENTICATION)
     },
   });
   
@@ -149,7 +153,7 @@ const LoginForm = () => {
         ) : null}
       </div>}
       <button
-        className=" bg-main-black text-white py-1 rounded-3xl"
+        className=" bg-main-black text-white py-2 rounded-3xl"
         type="submit"
       >{registration ? "Зарегистрироваться" : "Войти"}</button>
     </form>

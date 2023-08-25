@@ -6,13 +6,19 @@ import Notification from "./header-components/menu/notification";
 import Profile from "./header-components/menu/profile";
 import Burger from "./header-components/burger";
 import Link from "next/link";
-import { useBurger, useConnectPopup } from "@/store/toggle-store";
+import { useBurger, useConnectPopup, useGeoPopup } from "@/store/toggle-store";
 import ConnectWalletPopup from "./header-components/connect-wallet-popup";
 import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
 import { LoadingButton } from "../buttons/loading-button";
+import { useEffect } from "react";
+import axios from 'axios'
+import { GeoPopup } from "./header-components/menu/geoPopup";
 export default function Header() {
     const {isOpen,close}=useBurger();
-
+    const geoPopup = useGeoPopup()
+    useEffect(()=>{
+        // fetch('https://ipapi.co/json',{method:'GET'}).then(console.log)
+    },[])
     return (
         <header className=" sticky top-0 left-0 right-0 w-full z-20 stabilization">
             <div className="absolute top-0 left-0 w-full h-full bg-white/[0.75] backdrop-blur-[5px] -z-1 shadow-md ring-1 ring-black ring-opacity-5"/>
@@ -30,7 +36,9 @@ export default function Header() {
                     <div className="hidden xl:flex items-center gap-x-5">
                         <Languages/>
                         <Notification/>
-                        <Sprite name={"geo"} className={"w-8 h-8 text-black"}/>
+                        <div onClick={geoPopup.open}>
+                            <Sprite name={"geo"} className={"w-8 h-8 text-black"}/>
+                        </div>
                         <StatusButton/>
                     </div>
                     <div className="block xl:hidden">
@@ -40,23 +48,28 @@ export default function Header() {
                 </div>
             </nav>
             <ConnectWalletPopup/>
+            <GeoPopup/>
         </header>
     )
 }
 
 function StatusButton() {
     const status = useAuthorizationStore(state => state.status);
-    const {changeOpen,isOpen} = useConnectPopup();
+    const {changeOpen} = useConnectPopup();
     if(status == StatusAuthentication.LOADING) return(
     <LoadingButton
-        btnClasses="w-[154px] flex items-center justify-center bg-dark-purplish-blue text-white rounded-3xl shadow-btn py-2.5 px-6 outline-0 duration-200 ease-out hover:bg-sapphire-blue lg:hidden"
+        btnClasses=" flex items-center justify-center bg-main-black text-white rounded-3xl shadow-btn p-2 outline-0 duration-200 ease-out"
         svgClasses="animate-spin w-5 h-5"
     />)
     if(status == StatusAuthentication.AUTHENTICATION) return (
         <Profile/>
     )
     if(status == StatusAuthentication.NOT_AUTHENTICATION) return (
-        <button onClick={()=>changeOpen(!isOpen)}>
+        <button onClick={()=>{
+            const {isOpen} = useConnectPopup.getState();
+            console.log(isOpen);
+            changeOpen(!isOpen)
+        }}>
             <Sprite name={"account"} className={"w-8 h-8 text-black"}/>
         </button>
     )

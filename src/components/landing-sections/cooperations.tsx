@@ -3,9 +3,46 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
+import Marquee from "react-fast-marquee";
 
-
-
+const coop = [
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+    {
+        image: '/images/leroy.png',
+        alt: 'Leroy Merlen'
+    },
+]
 
 export default function Cooperation() {
     const ref = useRef(null);
@@ -20,11 +57,12 @@ export default function Cooperation() {
                 variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}} 
                 initial="hidden" animate={isInView ? "visible" : 'hidden'}
                 ref={ref} className="flex justify-between">
-                    <Image width={200} height={200} src={"/images/leroy.png"} alt={"Leroy Merlen"}/>
-                    <Image width={200} height={200} src={"/images/leroy.png"} alt={"Leroy Merlen"}/>
-                    <Image width={200} height={200} src={"/images/leroy.png"} alt={"Leroy Merlen"}/>
-                    <Image width={200} height={200} src={"/images/leroy.png"} alt={"Leroy Merlen"}/>
-                    <Image width={200} height={200} src={"/images/leroy.png"} alt={"Leroy Merlen"}/>
+                    <Marquee className="flex gap-x-5">
+                    {coop.map((coop,index)=>(
+                        <Image key={coop.image + index} width={200} height={200} src={coop.image} alt={coop.alt}/>
+                    ))}
+                    </Marquee>
+                    
                 </motion.div>
             </div>
 

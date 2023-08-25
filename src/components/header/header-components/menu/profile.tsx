@@ -34,6 +34,9 @@ export default function Profile() {
                     <Popover.Panel 
                         className="absolute -left-24 z-[9] mt-5 w-screen max-w-[350px] -translate-x-1/2 transform px-4"
                     >
+                        <div>
+                            
+                        </div>
                         <ProfileInfo/>
                     </Popover.Panel>
                   

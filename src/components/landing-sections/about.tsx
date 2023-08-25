@@ -35,7 +35,7 @@ export default function About() {
         <section id="about">
             <div  className="container flex flex-col gap-y-5">
                 <motion.h1 variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}}  initial="hidden" animate="visible" className="text-big">Что мы представляем</motion.h1>
-                <div  className="w-full flex gap-x-10 shadow-md ring-1 ring-black ring-opacity-5 p-10 rounded-3xl my-5">
+                <div className="w-full flex gap-x-10 shadow-md ring-1 ring-black ring-opacity-5 p-10 rounded-3xl my-5 max-xl:flex-col-reverse max-xl:items-center max-xl:gap-y-5">
                     <div className="flex flex-col gap-y-5 ">
                         <motion.div 
                             key={currentPage}
@@ -93,7 +93,9 @@ function Info({text,title,name,reverse}:{text:string,title:string,name:string,re
     const ref = useRef(null);
     const isInView = useInView(ref);
     return (
-        <div className={clsx("flex justify-between flex-wrap  shadow-md ring-1 ring-black ring-opacity-5 py-4 px-10 rounded-2xl", reverse && 'flex-row-reverse')}>
+        <div className={clsx(
+            "flex justify-between flex-wrap  shadow-md ring-1 ring-black ring-opacity-5 py-4 px-10 rounded-2xl",
+            reverse && 'flex-row-reverse')}>
             <div className={clsx("max-w-[450px]",reverse && "text-right")}>
                 <motion.h1 
                     ref={ref} variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}} 

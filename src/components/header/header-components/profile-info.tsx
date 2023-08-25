@@ -1,10 +1,21 @@
+'use client'
 import { montserrat } from "@/app/fonts";
 import { Sprite } from "@/components/image/sprite";
+import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
+import { useBurger } from "@/store/toggle-store";
 import clsx from "clsx";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ProfileInfo({menu}:{menu?:boolean}) {
-    //  shadow-lg ring-1 ring-black ring-opacity-5
+    const {set} = useAuthorizationStore();
+    const {close} = useBurger();
+    const router = useRouter();
+    const logout = ()=> {
+        set("",StatusAuthentication.NOT_AUTHENTICATION);
+        // close()
+        router.push('/')
+    }
     return (
         <>
             <div className={`${montserrat.className}`}>
@@ -34,7 +45,10 @@ export default function ProfileInfo({menu}:{menu?:boolean}) {
                     
                     <div className="flex gap-x-4 justify-between font-semibold">
                         <Link href={"/"}>
-                            <button className="w-full justify-center border border-black flex gap-x-2 py-2 px-4 rounded-3xl items-center">
+                            <button
+                                onClick={logout}
+                                className="w-full justify-center border border-black flex gap-x-2 py-2 px-4 rounded-3xl items-center"
+                            >
                                 <Sprite name={"disconnect"} className={"h-4 w-4"}/>
                                 Выйти
                             </button>
