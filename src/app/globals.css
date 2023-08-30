@@ -47,8 +47,44 @@ button {
   gap: 20px;
 }
 
+.flipped {
+  transform: rotateX(180deg);
+}
+.back {
+  transform: rotateX(180deg);
+
+}
+
+
+@media (max-width: 1024px){
+  .container {
+      max-width: 728px;
+  }
+}
+
+@media (max-width: 768px){
+  .container {
+      max-width: 640px;
+  }
+}
+@media (max-width: 640px){
+  .container {
+      max-width: 548px;
+  }
+}
+@media (min-width: 1024px){
+  .container {
+      max-width: 868px;
+  }
+}
+@media (min-width: 1280px){
+  .container {
+      max-width: 1068px;
+  }
+}
 @media (min-width: 1536px){
   .container {
       max-width: 1400px;
   }
 }
+

@@ -4,16 +4,17 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { StatusAuthentication, useAuthorizationStore } from '@/store/authorization-store'
 import { usePath } from '@/store/get-path'
-import { geoLocation } from '@/utils'
+import { geoLocation, getLocalStorage } from '@/utils'
+import { useQuery } from '@tanstack/react-query'
  
 export function NavigationEvents() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const auth = useAuthorizationStore();
- 
+  const auth = useAuthorizationStore(); 
+
   useEffect(()=>{
     geoLocation();
-  },[])
+  })
 
   useEffect(() => {
 
@@ -24,7 +25,7 @@ export function NavigationEvents() {
       auth.set("",StatusAuthentication.NOT_AUTHENTICATION)
     }
 
-  }, [pathname])
+  }, [pathname, searchParams])
  
   return null
 }

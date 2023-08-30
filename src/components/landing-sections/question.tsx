@@ -1,3 +1,4 @@
+'use client'
 import { motion, useInView } from "framer-motion";
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
@@ -53,7 +54,6 @@ export default function Question() {
 function Exposure({question,answer}:{question:string,answer:string}) {
     const ref = useRef(null);
     const isInView = useInView(ref);
-    console.log(isInView);
     return (
         <motion.div 
             ref={ref} variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}} 
@@ -64,7 +64,7 @@ function Exposure({question,answer}:{question:string,answer:string}) {
                 <div className="px-5 py-1 border  rounded-3xl">
                   
                     <Disclosure.Button className="py-2 flex items-center gap-4 w-full">
-                        <h1 className="font-semibold tracking-widest">{question}</h1>
+                        <h1 className="font-semibold tracking-widest text-left">{question}</h1>
                         <ChevronUpIcon
                             className={clsx(
                                 open && "rotate-180 transform",

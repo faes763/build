@@ -2,6 +2,7 @@
 import { Sprite } from "@/components/image/sprite"
 import clsx from "clsx"
 import Link from "next/link"
+
 import { usePathname } from "next/navigation"
 const navLinks = [
     {
@@ -46,11 +47,12 @@ export default function ProfileLayout({
     children: React.ReactNode
   }) {
   const pathname = usePathname();
+  
   return (
-      <main className="flex flex-col gap-y-10 py-10">
+      <main className="flex flex-col gap-y-10 py-5">
         <div className="container flex flex-col gap-y-5">
             <div className="flex justify-between items-center ">
-                <button className="bg-main-black py-2 px-4 rounded-3xl text-white">Оформить заказ</button>
+                <button className="bg-main-black py-2 px-4 rounded-3xl text-white"><Link href={"/calculation"}>Оформить заказ</Link></button>
                 <a className="text-[#4281E0] underline" href="#">Баланс 14 124 124 ₽</a>
             </div>
             <nav>
@@ -77,4 +79,5 @@ export default function ProfileLayout({
         </div>
       </main>
     )
-  }
+}
+

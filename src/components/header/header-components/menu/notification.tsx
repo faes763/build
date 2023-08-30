@@ -48,7 +48,7 @@ export default function Notification() {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1"
                 >
-                    <Popover.Panel className="absolute left-1/3 z-10 mt-5  w-screen max-w-[350px] -translate-x-1/2 transform px-4">
+                    <Popover.Panel className="absolute left-1/3 xl:-left-10 z-10 mt-5  w-screen max-w-[350px] -translate-x-1/2 transform px-4">
                         <div className="overflow-hidden rounded-2xl flex flex-col bg-white gap-y-2 shadow-lg ring-1 ring-black ring-opacity-5 p-4">
                         <XMarkIcon onClick={()=>close()} className="w-6 h-6 ml-auto cursor-pointer"/>
                         <div className="flex items-center justify-between">

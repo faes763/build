@@ -3,26 +3,23 @@ import { Sprite } from "@/components/image/sprite";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import ProfileInfo from "../profile-info";
-import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
-import { useConnectPopup } from "@/store/toggle-store";
+import { useProfile } from "@/store/toggle-store";
 
 export default function Profile() {
-    // const {status} = useAuthorizationStore();
+    const {isOpen,close,open} = useProfile();
     return (
         <>
         <Popover className="relative">
-            {({ open }) => (
             <>
-                
                 <Popover.Button
-                    className={'flex items-center'}
+                    onClick={()=>isOpen ? close(): open()}
+                    className={'flex items-center z-10 relative'}
                 >
                     <Sprite name={"account"} className={"w-8 h-8 text-black"}/>
                 </Popover.Button>
-               
-                <Popover.Overlay className="fixed inset-0 " />
+                {isOpen && <div onClick={close} className="backdrop-blur bg-black/[0.50] fixed inset-0" />}
                 <Transition
-                    show={open}
+                    show={isOpen}
                     as={Fragment}
                     enter="transition ease-out duration-200"
                     enterFrom="opacity-0 translate-y-1"
@@ -32,17 +29,14 @@ export default function Profile() {
                     leaveTo="opacity-0 translate-y-1"
                 >
                     <Popover.Panel 
-                        className="absolute -left-24 z-[9] mt-5 w-screen max-w-[350px] -translate-x-1/2 transform px-4"
+                        className="absolute  z-10 mt-5 w-screen max-w-[350px] -translate-x-[85%] transform xl:px-4"
                     >
-                        <div>
-                            
-                        </div>
                         <ProfileInfo/>
                     </Popover.Panel>
                   
                 </Transition>
             </>
-            )}
+            
         </Popover>
         </>
     )

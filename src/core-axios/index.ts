@@ -5,4 +5,4 @@ export const axiosCfg = axios.create({
     withCredentials: true,
 })
 
-// export const fetcher = (url: string) => axiosCfg.get(url).then(res => res.data) // для useSWR
+export const fetcher = (url: string) => axiosCfg.get(url).then(res => res.data) // для useSWR

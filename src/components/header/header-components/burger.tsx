@@ -12,10 +12,12 @@ import Link from "next/link";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { LoadingButton } from "@/components/buttons/loading-button";
 import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
+import { MainMenu } from "..";
 
 
 const Burger = () => {
     const {isOpen,open,close}=useBurger();
+    console.log(isOpen);
     const first = useSpring({
         transform: isOpen
           ? "translate(5px, 32px) rotate(-45deg)"
@@ -36,8 +38,8 @@ const Burger = () => {
         <Popover className={'relative'}>
             <>
                 <Popover.Button
-                    onClick={()=>isOpen?close():open()}
-                    className={'flex items-center'}
+                    onClick={()=>isOpen ? close(): open()}
+                    className={'flex items-center relative z-10 '}
                 >
                     
                     <svg
@@ -52,32 +54,29 @@ const Burger = () => {
                         <animated.rect width="40" height="4" rx="2" style={third} />
                     </svg>
                 </Popover.Button>
-                {/* <Popover.Overlay as="div" onClick={()=>console.log('yes')} className="fixed  test inset-0 bg-black opacity-30"/> */}
+
                 
                 <Transition
-                show={isOpen}
-                as={Fragment}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
+                    show={isOpen}
+                    as={Fragment}
+                    enter="transition ease-out duration-200"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-150"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
                 >
                     <Popover.Panel
                         as="nav" 
-                        className="absolute -left-24  z-10 mt-3 w-screen max-w-[350px] -translate-x-1/2 transform px-4"
+                        className={'absolute max-md:h-full md:px-4 max-md:fixed max-md:inset-0 z-10 mt-5 w-screen md:max-w-[350px] md:-translate-x-[85%] transform xl:px-4'}
+                        // className="=   max-w -translate-x-1/2 transform "
                     >
-                
-                            <div className={`${montserrat.className} bg-white font-semibold  rounded-2xl flex flex-col gap-y-2 shadow-lg ring-1 ring-black ring-opacity-5 p-4`}>
+                            <div className={`${montserrat.className} bg-white font-semibold  rounded-2xl flex flex-col gap-y-2 max-md:h-full shadow-lg ring-1 ring-black ring-opacity-5 p-4`}>
                                 <XMarkIcon onClick={close} className="w-6 h-6 ml-auto cursor-pointer"/>
                                 <Popover.Group 
-                                    className={'flex justify-evenly '}
+                                    className={'flex justify-evenly'}
                                 >
-                                    
-                                    <Languages/>
-                                    <Notification/>
-                                    <Sprite name={"geo"} className={"w-8 h-8 text-black"}/>
+                                   <MainMenu/>
                                 </Popover.Group>
                                 <ul className="text-sm flex flex-wrap gap-x-5 gap-y-4 justify-between p-4">
                                     <li onClick={close}><Link href={"/"}>Главная</Link></li>
@@ -99,6 +98,7 @@ const Burger = () => {
             </>
             
 
+        {isOpen && <div onClick={close} className="backdrop-blur bg-black/[0.50] fixed inset-0" />}
         </Popover>
     </>
            

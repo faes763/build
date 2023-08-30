@@ -42,14 +42,14 @@ export default function About() {
                             variants={{hidden: { opacity: 0,x: 20},visible: {  x: 0, opacity: 1 }}}
                             initial="hidden" animate="visible"
                         >
-                            <p className={`${montserrat.className} w-[700px] h-[150px]`}>{text[currentPage]}</p>
+                            <p className={`${montserrat.className}  min-h-[150px] xl:max-w-2xl max-md:max-w-md`}>{text[currentPage]}</p>
                         </motion.div>
                         <div className="flex gap-x-5">
                             {text.map((element,index)=>(
                                  <div
                                  onClick={() => set(index)}
                                  className={clsx(
-                                   "cursor-pointer relative bg-grey-lg w-24 h-4 rounded-xl text-animate",
+                                   "cursor-pointer relative bg-grey-lg md:w-24 w-16 h-4 rounded-xl text-animate",
                                    index <= currentPage && "after:bg-grey-sh after:w-full"
                                  )}
                                  key={element + index}
@@ -63,7 +63,7 @@ export default function About() {
                        
                     </div>
                     <iframe
-                    className="rounded-2xl"
+                    className="rounded-2xl max-md:max-w-md"
                     width="600" height="300" src="https://www.youtube.com/embed/51pIvUzP84o" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                 </div>
                 <div className="flex flex-col gap-y-5">
@@ -82,7 +82,6 @@ export default function About() {
                 </div>
                 <div className="shadow-md ring-1 ring-black ring-opacity-5 py-4 px-10 rounded-2xl">
                     <motion.a variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}}  initial="hidden" animate="visible" className=" font-bold text-2xl">Не откладывайте ремонт в долгий ящик, присоединяйтесь к нам сегодня и начните преображение вашего жилья уже сейчас!</motion.a>
-
                 </div>
             </div>
         </section>

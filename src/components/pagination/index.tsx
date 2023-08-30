@@ -124,7 +124,7 @@ function PopupChangePage({isOpen, setPopup, onPageChange, totalPageCount}: Popup
         return () => {
           window.removeEventListener('keydown', handleKeyDown);
         };
-      }, []);
+      });
 
     return (
         <Transition

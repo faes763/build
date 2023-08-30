@@ -1,5 +1,5 @@
 'use client'
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 export const changeRoot = async(name:string,property:string) =>{
     const body = document.body;
@@ -39,7 +39,7 @@ interface geo {
 
 export const geoLocation = async() => {
     const checkEnter = localStorage.getItem('enter');
-
+    const checkCities = localStorage.getItem('cities');
     
     if(!checkEnter) axios.get('https://ipapi.co/json').then(res=>res.data).then(async(data:geo)=> {
         const cites = await getCountryCity(data.country)
@@ -47,9 +47,12 @@ export const geoLocation = async() => {
         localStorage.setItem('enter',JSON.stringify(data));
     }) 
     else {
-        const country = JSON.parse(checkEnter).country;
-        const cites = await getCountryCity(country)
-        localStorage.setItem('cites',cites)
+        if(checkCities) {
+            const country = JSON.parse(checkEnter).country;
+            const cites = await getCountryCity(country)
+            localStorage.setItem('cites',cites)
+        }
+        
     }
 }
 
@@ -72,3 +75,22 @@ const getCountryCity = async(country:string)=> {
         return undefined
     }
 }
+
+// axios.get('https://ip-geo-location4.p.rapidapi.com/',{
+//     params: {format:"json"},
+//     headers: {
+//         'X-RapidAPI-Key': '0b5d9b2ea9msh6bccc9ff05175f3p15afbbjsn590912e7c004',
+//         'X-RapidAPI-Host': 'ip-geo-location4.p.rapidapi.com'
+//     }
+// })
+// .then(res=>res.data)
+// .then(async(data:geo)=>{
+//     const cites = await getCountryCity(data.country.country_code)
+//     localStorage.setItem('cites',cites)
+//     localStorage.setItem('enter',JSON.stringify(data));
+// })
+// if(!checkEnter) axios.get('https://ipapi.co/json').then(res=>res.data).then(async(data:geo)=> {
+//         const cites = await getCountryCity(data.country)
+//         localStorage.setItem('cites',cites)
+//         localStorage.setItem('enter',JSON.stringify(data));
+//     }) 

@@ -1,14 +1,16 @@
 type IconProps = {
     name: string
     className: string
+    onClick?: any
 }
 
 export function Sprite({
     name,
-    className
+    className,
+    onClick
 }: IconProps): JSX.Element {
     return (
-        <svg className={className}>
+        <svg onClick={onClick} className={className}>
             <use xlinkHref={`/sprite.svg#${name}`} />
         </svg>
     )

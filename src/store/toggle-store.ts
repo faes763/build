@@ -36,3 +36,15 @@ export const useGeoPopup = create<toggleState>((set)=>({
     open: () => set({ isOpen: true }),
     close: () => set({ isOpen: false }),
 }))
+
+export const useProfile = create<toggleState>((set)=>({
+    isOpen: false,
+    open: () => set({ isOpen: true }),
+    close: () => set({ isOpen: false }),
+}))
+
+export const useCompoundPopup = create<toggleState>((set)=>({
+    isOpen: false,
+    open: () => set({ isOpen: true }),
+    close: () => set({ isOpen: false }),
+}))

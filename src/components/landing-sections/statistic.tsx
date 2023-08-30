@@ -21,20 +21,20 @@ export default function Statistic() {
                 <motion.h1 variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}}  initial="hidden" animate="visible" className="text-big">
                     Наша статистика
                 </motion.h1>
-                <div ref={ref} className={`${montserrat.className} flex gap-x-5 text-2xl text-center`}>
-                    <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 rounded-3xl">
+                <div ref={ref} className={`${montserrat.className} flex gap-5 text-2xl text-center flex-wrap max-lg:text-xl`}>
+                    <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 max-lg:px-4 max-lg:py-2 rounded-3xl">
                         <AnimatedNumber inView={isInView} value={(+dataStats[0])}/>
                         <motion.p>Ремонтов</motion.p>
                     </div>
-                    <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 rounded-3xl">
+                    <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 max-lg:px-4 max-lg:py-2 rounded-3xl">
                         <AnimatedNumber inView={isInView} value={(+dataStats[1])}/>
                         <motion.p>Компаний</motion.p>
                     </div>
-                    <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 rounded-3xl">
+                    <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 max-lg:px-4 max-lg:py-2 rounded-3xl">
                         <AnimatedNumber inView={isInView} value={(+dataStats[2])}/>
                         <motion.p>Авторизаций</motion.p>
                     </div>
-                    <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 rounded-3xl">
+                    <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 max-lg:px-4 max-lg:py-2 rounded-3xl">
                         <AnimatedNumber inView={isInView} value={(+dataStats[3])}/>
                         <motion.p>Отзывов</motion.p>
                     </div>

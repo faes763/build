@@ -1,9 +1,9 @@
-'use client'
 
 import About from "@/components/landing-sections/about"
 import Cooperation from "@/components/landing-sections/cooperations"
 import Question from "@/components/landing-sections/question"
-import Review from "@/components/landing-sections/reviews"
+import Reviews from "@/components/landing-sections/ssr/reviews"
+import Start from "@/components/landing-sections/start"
 import Statistic from "@/components/landing-sections/statistic"
 
 export default function Home() {
@@ -13,8 +13,9 @@ export default function Home() {
       <About/>
       <Statistic/>
       <Cooperation/>
-      <Review/>
+      <Reviews/>
       <Question/>
+      <Start/>
     </div>
   )
 }

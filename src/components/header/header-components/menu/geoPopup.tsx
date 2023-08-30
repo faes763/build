@@ -3,6 +3,7 @@ import { useGeoPopup } from "@/store/toggle-store";
 import { getLocalStorage, setLocalStorage } from "@/utils";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import clsx from "clsx";
 import { Fragment, useEffect, useState } from "react";
 
 
@@ -17,13 +18,19 @@ export function GeoPopup() {
     setFilteredCities(filtered);
   };
   useEffect(()=>{
-  const citiesString = getLocalStorage('cites');
-  if(citiesString) {
-    const citiesArray = citiesString.split(',');
-    console.log(citiesArray);
-    setCity(citiesArray)
-    setFilteredCities(citiesArray)
-  }
+    const interval = setInterval(()=>{
+      const citiesString = getLocalStorage('cites');
+      console.log('yes');
+      if(citiesString) {
+        const citiesArray = citiesString.split(',');
+        setCity(citiesArray);
+        setFilteredCities(citiesArray);
+        clearInterval(interval);
+      }
+    },1000);
+    return ()=>{
+      clearInterval(interval)
+    }
   },[])
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -73,7 +80,7 @@ export function GeoPopup() {
                   
                     <div className="text-big flex flex-wrap gap-10 container shadow-md ring-1 ring-black ring-opacity-5 p-5">
                       {filteredCities.map((city,index)=>(
-                        <h1 className=" cursor-pointer" onClick={()=>setLocalStorage("city",city)} key={city+index}>{city}</h1>
+                        <h1 className={clsx('cursor-pointer', getLocalStorage('city') == city && "underline")} onClick={()=>{setLocalStorage("city",city); close()}} key={city+index}>{city}</h1>
                       ))}
                       {filteredCities.length == 0 && <h1>NOT FOUND</h1>}
                     </div>

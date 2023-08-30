@@ -2,7 +2,7 @@
 import { montserrat } from "@/app/fonts";
 import { Sprite } from "@/components/image/sprite";
 import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
-import { useBurger } from "@/store/toggle-store";
+import { useBurger, useProfile } from "@/store/toggle-store";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,11 +10,13 @@ import { useRouter } from "next/navigation";
 export default function ProfileInfo({menu}:{menu?:boolean}) {
     const {set} = useAuthorizationStore();
     const {close} = useBurger();
+    const profile = useProfile();
     const router = useRouter();
     const logout = ()=> {
+        close();
+        profile.close();
         set("",StatusAuthentication.NOT_AUTHENTICATION);
-        // close()
-        router.push('/')
+        router.push('/');
     }
     return (
         <>
@@ -54,7 +56,10 @@ export default function ProfileInfo({menu}:{menu?:boolean}) {
                             </button>
                         </Link>
                         <Link href={"/profile"}>
-                            <button className="w-full justify-center bg-main-black flex gap-x-2 py-2 px-4 rounded-3xl items-center text-white">
+                            <button onClick={()=>{
+                                profile.close();
+                                close();
+                            }} className="w-full justify-center bg-main-black flex gap-x-2 py-2 px-4 rounded-3xl items-center text-white">
                                 <Sprite name={"enter"} className={"h-4 w-4 "}/>
                                 Профиль
                             </button>
