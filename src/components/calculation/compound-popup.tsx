@@ -1,10 +1,8 @@
-import { Sprite } from "@/components/image/sprite";
 import { useCompoundPopup } from "@/store/toggle-store";
-import { Dialog, Popover, Transition } from "@headlessui/react";
-import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import clsx from "clsx";
-import { Field, FieldConfig, FieldInputProps, FormikErrors, FormikTouched, useFormik } from "formik";
-import { Fragment, SetStateAction, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/20/solid";
+import { FieldConfig, FieldInputProps, FormikErrors, FormikTouched, useFormik } from "formik";
+import { Fragment } from "react";
 import * as Yup from "yup";
 
 export default function CompoundPopup() {

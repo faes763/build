@@ -1,7 +1,6 @@
 'use client'
-import React, { Fragment, useRef, useState } from "react";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import React, { Fragment, useCallback, useRef, useState } from "react";
+
 import clsx from "clsx";
 import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { Popover, Transition, Tab } from "@headlessui/react";
@@ -9,8 +8,14 @@ import Image from "next/image";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Sprite } from "@/components/image/sprite";
-import CompoundPopup from "./compound-popup";
+import CompoundPopup from "@/components/calculation/compound-popup";
 import { useCompoundPopup } from "@/store/toggle-store";
+import dynamic from "next/dynamic";
+const ClassicCKEditor = dynamic(
+    () => import("@/components/calculation/test"),
+    { ssr: false }
+);
+
 
 const categories = [
     {
@@ -47,6 +52,10 @@ export default function Calculation() {
     const [targets, setTargets] = useState<string[]>([]);
     const {open} = useCompoundPopup();
     console.log(activeCategories);
+    const onCKChange = useCallback((value: any) => {
+        console.log("CK Change");
+        console.log("value", value);
+      }, []);
     return (
         <main>
             <div className="container flex flex-col gap-y-5 py-5">
@@ -70,7 +79,7 @@ export default function Calculation() {
                     <Tab.Group>
                         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
                         {categories.map((category,idx) => (
-                            <Tab as={Fragment}>
+                            <Tab key={category.description} as={Fragment}>
                             {({ selected }) => (
                               <button
                                 onClick={()=>{
@@ -101,7 +110,7 @@ export default function Calculation() {
                                     setActiveCategories((prev) => [...prev, category.name]);
                                 }
                             }}
-                            key={idx}
+                            key={category.name+idx}
                             className={clsx(
                                 'flex gap-x-5 p-5 my-5 rounded-3xl border cursor-pointer',
                             )}
@@ -142,23 +151,9 @@ export default function Calculation() {
                         <h1 className="text-big">Список работ</h1>
                     </div>
                 </div>
-                    
-                <CKEditor
-                    editor={ ClassicEditor }
-                    data="<p>Описание и дополнительные комментарии к ожидаемому результату</p>"
-                    onReady={ editor => {
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        console.log( { event, editor, data } );
-                    } }
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
+                <ClassicCKEditor 
+                    data={"<p>Hello from CKEditor 5!</p>"}
+                    onChange={onCKChange}
                 />
             </div>
             <CompoundPopup/>
