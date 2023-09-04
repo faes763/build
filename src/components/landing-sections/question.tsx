@@ -5,6 +5,8 @@ import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import { Fragment, useRef, useState } from "react";
 import clsx from "clsx";
 import { montserrat } from "@/app/fonts";
+import { Parallax, ParallaxProvider } from "react-scroll-parallax";
+import { Sprite } from "../image/sprite";
 
 const questions = [
     {
@@ -59,6 +61,7 @@ function Exposure({question,answer}:{question:string,answer:string}) {
             ref={ref} variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}} 
             initial="hidden" animate={isInView ? "visible" : 'hidden'}
         >
+            
             <Disclosure>
                 {({ open }) => (
                 <div className="px-5 py-1 border  rounded-3xl">
@@ -81,7 +84,7 @@ function Exposure({question,answer}:{question:string,answer:string}) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                    <Disclosure.Panel className={`${montserrat.className} py-5`}>
+                    <Disclosure.Panel className={`${montserrat.className} max-sm:text-sm py-5`}>
                         {answer}
                     </Disclosure.Panel>
                     </Transition>

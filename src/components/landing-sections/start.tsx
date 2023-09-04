@@ -4,12 +4,14 @@ import { Sprite } from "../image/sprite";
 import { montserrat } from "@/app/fonts";
 import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
 import { useBurger, useConnectPopup, useProfile } from "@/store/toggle-store";
-
+import { Parallax, ParallaxProvider } from "react-scroll-parallax";
+// import circle from "bundle-text:/circle.svg";
+import circleRings from "bundle-text:/svg/circle-rings.svg";
 export default function Start() {
-
     return (
         <section>
-            <div className="container ">
+            
+            <div className="container">
                 <motion.h1 variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}}  initial="hidden" animate="visible" className="text-big">
                     Начните прямо сейчас!
                 </motion.h1>

@@ -6,7 +6,6 @@ export const changeRoot = async(name:string,property:string) =>{
     body.style.setProperty('--' + name, property);
 }
 
-
 interface geo {
     asn: string
     city: string

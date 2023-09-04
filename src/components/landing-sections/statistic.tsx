@@ -17,11 +17,11 @@ export default function Statistic() {
     const isInView = useInView(ref);
     return (
         <section>
-            <div className="container flex flex-col gap-y-5">
+            <div className="container flex gap-y-5 flex-col">
                 <motion.h1 variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}}  initial="hidden" animate="visible" className="text-big">
                     Наша статистика
                 </motion.h1>
-                <div ref={ref} className={`${montserrat.className} flex gap-5 text-2xl text-center flex-wrap max-lg:text-xl`}>
+                <div ref={ref} className={`${montserrat.className} flex gap-5 text-2xl text-center max-md:flex-col max-lg:text-xl`}>
                     <div className=" shadow-md ring-1 ring-black ring-opacity-5 px-6 py-4 max-lg:px-4 max-lg:py-2 rounded-3xl">
                         <AnimatedNumber inView={isInView} value={(+dataStats[0])}/>
                         <motion.p>Ремонтов</motion.p>

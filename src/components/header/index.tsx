@@ -15,7 +15,7 @@ export default function Header() {
 
     return (
         <header className=" sticky top-0 left-0 right-0 w-full z-20 stabilization">
-            <div className="absolute top-0 left-0 w-full h-full bg-white/[0.75] backdrop-blur-[5px] -z-1 shadow-md ring-1 ring-black ring-opacity-5"/>
+            <div className="absolute top-0 left-0 w-full h-full bg-white/[0.75] backdrop-blur-[5px] -z-10 shadow-md ring-1 ring-black ring-opacity-5"/>
             <nav className="container flex justify-between py-5 items-center relative">
                 <Link href="/" className=" text-2xl font-semibold cursor-pointer">Buildassistent</Link>
                 <ul className="hidden xl:flex gap-x-10 ">

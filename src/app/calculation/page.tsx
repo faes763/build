@@ -12,7 +12,7 @@ import CompoundPopup from "@/components/calculation/compound-popup";
 import { useCompoundPopup } from "@/store/toggle-store";
 import dynamic from "next/dynamic";
 const ClassicCKEditor = dynamic(
-    () => import("@/components/calculation/test"),
+    () => import("@/components/calculation/editor"),
     { ssr: false }
 );
 
@@ -62,18 +62,7 @@ export default function Calculation() {
                 <h1 className="text-big">Детальное описание объекта</h1>
                 <p>Выберите название комнаты и ремонтируемую её часть.</p>
                 <input className="w-full max-w-sm bg-grey-lg py-1 px-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 border" placeholder="Введите название комнаты"/>
-                <div className="xl:flex hidden justify-between gap-x-5">
-                    {categories.map((category)=>(
-                        <Category
-                            key={category.name}
-                            name={category.name}
-                            text={category.description}
-                            image={category.image}
-                            activeCategories={activeCategories}
-                            setActiveCategories={setActiveCategories}
-                        />
-                    ))}
-                </div>
+                <DesktopMenu activeCategories={activeCategories} setActiveCategories={setActiveCategories}/>
                 <div className="xl:hidden">
                     <div className="flex flex-col w-full">
                     <Tab.Group>
@@ -161,7 +150,28 @@ export default function Calculation() {
     )
 }
 
-
+function DesktopMenu({
+    activeCategories,
+    setActiveCategories
+}:{
+    activeCategories: string[]
+    setActiveCategories: React.Dispatch<React.SetStateAction<string[]>>
+}) {
+    return(
+    <div className="xl:flex hidden justify-between gap-x-5">
+        {categories.map((category)=>(
+            <Category
+                key={category.name}
+                name={category.name}
+                text={category.description}
+                image={category.image}
+                activeCategories={activeCategories}
+                setActiveCategories={setActiveCategories}
+            />
+        ))}
+    </div>
+    )
+}
 
 function Category({
     name,
