@@ -43,7 +43,7 @@ export default function About() {
             <div  className="container flex flex-col gap-y-5">
             
                 <motion.h1 variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}}  initial="hidden" animate="visible" className="text-big">Что мы представляем</motion.h1>
-                <div className="w-full relative flex gap-x-10 shadow-md ring-1 ring-black ring-opacity-5 p-10 rounded-3xl my-5 max-xl:flex-col-reverse max-xl:items-center max-xl:gap-y-5">
+                <div className="w-full relative max-sm:px-4 flex gap-x-10 shadow-md ring-1 ring-black ring-opacity-5 p-10 rounded-3xl my-5 max-xl:flex-col-reverse max-xl:items-center max-xl:gap-y-5">
                 {newYear && 
                 <div className="aurora">
                     <div className="aurora__item"></div>
@@ -61,7 +61,7 @@ export default function About() {
                             triggerOnce
                             direction="left"
                         >
-                            <p className={`${montserrat.className} max-sm:text-sm  min-h-[150px] xl:max-w-2xl max-md:max-w-md max-sm:min-h-[220px] max-sm:max-w-xs`}>{text[currentPage]}</p>
+                            <p className={`${montserrat.className} max-sm:text-sm  min-h-[150px] xl:max-w-2xl max-md:max-w-md max-sm:min-h-[200px] max-sm:max-w-xs`}>{text[currentPage]}</p>
                         </Fade> 
                         
                         
@@ -84,7 +84,7 @@ export default function About() {
                        
                     </div>
                     <iframe
-                    className="rounded-2xl max-md:max-w-md max-sm:max-w-[200px] max-sm:h-[200px]"
+                    className="rounded-2xl max-md:max-w-md max-sm:max-w-full max-sm:h-[200px]"
                     width="600" height="300" src="https://www.youtube.com/embed/51pIvUzP84o" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                 </div>
                 
@@ -119,7 +119,7 @@ function Info({text,title,name,reverse}:{text:string,title:string,name:string,re
     
     return (
         <div className={clsx(
-            "flex justify-between flex-wrap overflow-hidden  shadow-md ring-1 ring-black ring-opacity-5 py-4 px-10 rounded-2xl ",
+            "flex justify-between flex-wrap overflow-hidden  shadow-md ring-1 ring-black ring-opacity-5 py-4 px-10 rounded-2xl max-sm:px-4",
             reverse && 'flex-row-reverse')}>
             
             <div className={clsx("max-w-[450px]",reverse && "text-right")}>
