@@ -104,7 +104,7 @@ export default function Calculation() {
                         <h1 className="text-big">Желаемая цель</h1>
                         <AddTargets setTargets={setTargets} targets={targets}/>
                         <div className="flex max-w-lg  flex-wrap gap-5 p-5">
-                            {chunkArray(targets,5)[page-1].map((el,index)=>(
+                            {reduceTarget[page-1].map((el,index)=>(
                                 <Target text={el} currentIndex={index} setTarget={setTargets} key={el+index}/>
                             ))}
                         </div>
