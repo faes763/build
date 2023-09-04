@@ -149,7 +149,7 @@ function Info({text,title,name,reverse}:{text:string,title:string,name:string,re
                 variants={{hidden: { opacity: 0,x: 20},visible: {  x: 0, opacity: 1 }}}
                 initial="hidden" animate={isInView ? "visible" : 'hidden'}
             > 
-                <Parallax bgImage={`/svg/${name}.svg`} strength={850}>
+                <Parallax bgImage={`/svg/${name}.svg`} strength={250}>
                     <div className={"w-64 h-64 text-black"}/>
                 </Parallax>
                 
