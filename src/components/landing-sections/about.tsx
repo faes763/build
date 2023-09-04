@@ -70,7 +70,7 @@ export default function About() {
                                  <div
                                  onClick={() => set(index)}
                                  className={clsx(
-                                   "cursor-pointer relative bg-grey-lg md:w-24 max-sm:max-w-[2rem] w-16 h-4 rounded-xl text-animate",
+                                   "cursor-pointer relative bg-grey-lg md:w-24 max-sm:w-full  w-16 h-4 rounded-xl text-animate",
                                    index <= currentPage && "after:bg-grey-sh after:w-full"
                                  )}
                                  key={element + index}
