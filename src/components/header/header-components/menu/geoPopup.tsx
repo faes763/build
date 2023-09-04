@@ -70,7 +70,7 @@ export function GeoPopup() {
                       />
                         <Dialog.Title
                           as="h3"
-                          className="leading-6 text-3xl"
+                          className="leading-6 text-3xl max-sm:text-sm"
                         >
                           Выберите свой город
                         </Dialog.Title>

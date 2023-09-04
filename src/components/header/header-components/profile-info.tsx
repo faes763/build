@@ -21,7 +21,7 @@ export default function ProfileInfo({menu}:{menu?:boolean}) {
     return (
         <>
             <div className={`${montserrat.className}`}>
-                <div className={clsx("p-4  bg-white font-semibold overflow-hidden rounded-2xl flex flex-col gap-y-4",!menu && "shadow-lg ring-1 ring-black ring-opacity-5")}>
+                <div className={clsx("p-4 max-sm:p-2  bg-white font-semibold overflow-hidden rounded-2xl flex flex-col gap-y-4",!menu && "shadow-lg ring-1 ring-black ring-opacity-5")}>
                     <div className="flex flex-col gap-y-2">
                         <div>
                             <p className=" text-[#6B7280]">Баланс</p>
@@ -45,7 +45,7 @@ export default function ProfileInfo({menu}:{menu?:boolean}) {
                         <hr/>
                     </div>
                     
-                    <div className="flex gap-x-4 justify-between font-semibold">
+                    <div className="flex gap-x-4  justify-between font-semibold">
                         <Link href={"/"}>
                             <button
                                 onClick={logout}

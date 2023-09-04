@@ -11,6 +11,7 @@ import { Sprite } from "@/components/image/sprite";
 import CompoundPopup from "@/components/calculation/compound-popup";
 import { useCompoundPopup } from "@/store/toggle-store";
 import dynamic from "next/dynamic";
+import { montserrat } from "../fonts";
 const ClassicCKEditor = dynamic(
     () => import("@/components/calculation/editor"),
     { ssr: false }
@@ -45,13 +46,38 @@ const categories = [
     },
 ]
 
+const testWorks = [
+    {
+        name: "Грунтовка стен (nan) | Объём - 984,0 м2 | Цена - 50,0",
+        price: "49200₽"
+    },
+    {
+        name: "Грунтовка стен (nan) | Объём - 984,0 м2 | Цена - 50,0",
+        price: "49200₽"
+    },
+    {
+        name: "Грунтовка стен (nan) | Объём - 984,0 м2 | Цена - 50,0",
+        price: "49200₽"
+    },
+    {
+        name: "Грунтовка стен (nan) | Объём - 984,0 м2 | Цена - 50,0",
+        price: "49200₽"
+    },
+]
+
+interface workListType {
+    name: string;
+    price: string;
+}
 
 export default function Calculation() {
     const [content, setContent] = useState("");
     const [activeCategories, setActiveCategories] = useState<string[]>([]);
     const [targets, setTargets] = useState<string[]>([]);
+    const [works,setWorks] = useState<workListType[]>(testWorks);
+
     const {open} = useCompoundPopup();
-    console.log(activeCategories);
+    
     const onCKChange = useCallback((value: any) => {
         console.log("CK Change");
         console.log("value", value);
@@ -63,67 +89,9 @@ export default function Calculation() {
                 <p>Выберите название комнаты и ремонтируемую её часть.</p>
                 <input className="w-full max-w-sm bg-grey-lg py-1 px-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 border" placeholder="Введите название комнаты"/>
                 <DesktopMenu activeCategories={activeCategories} setActiveCategories={setActiveCategories}/>
-                <div className="xl:hidden">
-                    <div className="flex flex-col w-full">
-                    <Tab.Group>
-                        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-                        {categories.map((category,idx) => (
-                            <Tab key={category.description} as={Fragment}>
-                            {({ selected }) => (
-                              <button
-                                onClick={()=>{
-                                    console.log(selected);
-                                }}
-                                className={
-                                    clsx(
-                                    'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
-                                    activeCategories.includes(category.name) && "underline underline-offset-2"
-                                    )
-                                }
-                              >
-                                {category.name}
-                              </button>
-                            )}
-                          </Tab>
-                        ))}
-                        </Tab.List>
-                        <Tab.Panels>
-                        {categories.map((category, idx) => (
-                            <Tab.Panel
-                            onClick={()=>{
-                                if (activeCategories.includes(category.name)) {
-                                    setActiveCategories((prev) =>
-                                    prev.filter((categoryItem) => categoryItem !== category.name)
-                                );
-                                } else {
-                                    setActiveCategories((prev) => [...prev, category.name]);
-                                }
-                            }}
-                            key={category.name+idx}
-                            className={clsx(
-                                'flex gap-x-5 p-5 my-5 rounded-3xl border cursor-pointer',
-                            )}
-                            >
-                                    <div className="flex flex-col gap-y-5 items-start">
-                                        <p>{category.description}</p>
-                                        <button 
-                                            className="justify-center bg-main-black flex gap-x-2 py-2 px-4 rounded-3xl items-center text-white"
-                                        >Добавить</button>
-                                    </div>
-                                   
-                                    <Image 
-                                        src={category.image} height={150} width={150}
-                                        className="w-48 h-48" alt={"next"}
-                                    />
-                            </Tab.Panel>
-                        ))}
-                        </Tab.Panels>
-                    </Tab.Group>
-                    </div>
-                    
-                </div>
-                <div className="flex justify-between gap-5">
-                    <div className="flex flex-col">
+                <PhomeMenu activeCategories={activeCategories} setActiveCategories={setActiveCategories}/>
+                <div className="flex justify-between gap-5 max-xl:flex-col">
+                    <div className="flex flex-col gap-y-5 w-full">
                         <h1 className="text-big">Желаемая цель</h1>
                         <AddTargets setTargets={setTargets} targets={targets}/>
                         <div className="flex max-w-lg flex-wrap gap-5 p-5">
@@ -134,16 +102,24 @@ export default function Calculation() {
                         <div>
                             <button className="rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" onClick={open}>Выбрать состав</button>
                         </div>
-                        
+                        <ClassicCKEditor 
+                            data={"Описание и дополнительные комментарии к ожидаемому результату"}
+                            onChange={onCKChange}
+                        />
                     </div>
-                    <div>
+                    <div className="w-full">
                         <h1 className="text-big">Список работ</h1>
+                        <div className={` flex flex-col gap-y-5`}>
+                            {works.map((work,index)=>(
+                                <div className="flex flex-col gap-y-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" key={work.name+index}>
+                                    <p>{work.name}</p>
+                                    <p className="text-right">Стомость - {work.price}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-                <ClassicCKEditor 
-                    data={"<p>Hello from CKEditor 5!</p>"}
-                    onChange={onCKChange}
-                />
+                
             </div>
             <CompoundPopup/>
         </main>
@@ -173,6 +149,78 @@ function DesktopMenu({
     )
 }
 
+function PhomeMenu({
+    activeCategories,
+    setActiveCategories
+}:{
+    activeCategories: string[]
+    setActiveCategories: React.Dispatch<React.SetStateAction<string[]>>
+}) {
+    return (
+        <div className="xl:hidden">
+            <div className="flex flex-col w-full">
+                <Tab.Group>
+                    <Tab.List className="flex space-x-1 rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5 gap-x-1 px-6 py-2 max-sm:px-2 border">
+                        {categories.map((category,idx) => (
+                            <Tab key={category.description} as={Fragment}>
+                                {({ selected }) => (
+                                <button
+                                    className={
+                                        clsx(
+                                        'w-full rounded-3xl py-2.5 text-xs font-medium leading-5 ',
+                                        activeCategories.includes(category.name) && " sm:bg-main-black sm:text-white underline underline-offset-2"
+                                        )
+                                    }
+                                >
+                                    {category.name}
+                                </button>
+                                )}
+                            </Tab>
+                        ))}
+                        </Tab.List>
+                        <Tab.Panels>
+                            {categories.map((category, idx) => (
+                            <Tab.Panel
+                                onClick={()=>{
+                                    console.log('yess');
+                                    if (activeCategories.includes(category.name)) {
+                                        setActiveCategories((prev) =>
+                                        prev.filter((categoryItem) => categoryItem !== category.name)
+                                    );
+                                    } else {
+                                        setActiveCategories((prev) => [...prev, category.name]);
+                                    }
+                                }}
+                                key={category.name+idx}
+                                className={clsx(
+                                    'flex gap-x-5 p-5 my-5 rounded-3xl border cursor-pointer',
+                                )}
+                            >
+                                <div className="flex flex-col gap-y-5 items-start">
+                                    <div>
+                                        <p className="font-bold">{category.name}</p>
+                                        <p className="max-sm:text-sm">{category.description}</p>
+                                    </div>
+                                    
+                                    <button 
+                                        className="justify-center bg-main-black flex gap-x-2 py-2 px-4 rounded-3xl items-center text-white"
+                                    >Добавить</button>
+                                </div>
+                                
+                                {/* <Image 
+                                    src={category.image} height={150} width={150}
+                                    className="w-48 h-48" alt={"next"}
+                                /> */}
+                            </Tab.Panel>
+                        ))}
+                        </Tab.Panels>
+                    </Tab.Group>
+                    </div>
+                    
+                </div>
+    )
+}
+
 function Category({
     name,
     text,
@@ -199,11 +247,12 @@ function Category({
                 }
             }}
             className={clsx(
-                "card min-h-[375px] transition-all duration-500 relative flex items-end cursor-pointer flex-col justify-between w-[300px] shadow-lg ring-1 ring-black ring-opacity-5 p-4 border rounded-3xl"
-                ,active && "flipped"
+                "card min-h-[375px]  transition-all duration-500 relative flex items-end cursor-pointer flex-col justify-between w-[300px] shadow-lg ring-1 ring-black ring-opacity-5 p-4 border rounded-3xl",
+                active && "flipped",
+                
             )}
         >   
-            <div className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-2 hover:scale-90 transition-all duration-500">
                 <h1 className={clsx("text-3xl font-bold transition-all",active && "back")}>{name}</h1>
                 <Transition
                     show={!active}
@@ -212,7 +261,7 @@ function Category({
                     enterFrom="opacity-0"
                     enterTo="opacity-100"
                 >
-                    <h1>{text}</h1>   
+                    <p>{text}</p>   
                 </Transition>
             </div>
             
@@ -267,7 +316,7 @@ function AddTargets({
         {({ open,close }) => (
         <>  
             <Popover.Button
-                className={'flex items-center gap-x-5 z-10 relative shadow-md ring-1 ring-black ring-opacity-5 px-6 py-2 rounded-3xl'}
+                className={'flex items-center gap-x-5 z-10 relative shadow-md ring-1 ring-black ring-opacity-5 px-6 py-2 max-sm:text-sm max-sm:px-4 rounded-3xl'}
             >
                 Выберите цель ремонта
                 <ChevronDownIcon
