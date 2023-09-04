@@ -1,4 +1,5 @@
 
+
 import Review from '../review'
 
 interface review {
@@ -17,14 +18,14 @@ const getReviews = async()=>{
     const chunkedReviews = chunkArray(reviews, 6);
     return chunkedReviews;
 }
-
 function chunkArray(array: any[], size: number) {
-  const result = [];
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size));
-  }
-  return result;
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
 }
+
 
 export default async function Reviews() {
     const data:review[][] = await getReviews();

@@ -1,5 +1,5 @@
 'use client'
-import React, { Fragment, useCallback, useRef, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 
 import clsx from "clsx";
 import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/20/solid";
@@ -12,6 +12,8 @@ import CompoundPopup from "@/components/calculation/compound-popup";
 import { useCompoundPopup } from "@/store/toggle-store";
 import dynamic from "next/dynamic";
 import { montserrat } from "../fonts";
+import { chunkArray } from "@/utils";
+import Pagination from "@/components/pagination";
 const ClassicCKEditor = dynamic(
     () => import("@/components/calculation/editor"),
     { ssr: false }
@@ -71,10 +73,17 @@ interface workListType {
 }
 
 export default function Calculation() {
+    const [page,setPage] = useState(1);
     const [content, setContent] = useState("");
     const [activeCategories, setActiveCategories] = useState<string[]>([]);
     const [targets, setTargets] = useState<string[]>([]);
     const [works,setWorks] = useState<workListType[]>(testWorks);
+    const [reduceTarget,setReduceTarget] = useState<string[][]>([[]]);
+
+    useEffect(()=>{
+        const reduce = chunkArray(targets,5)
+        setReduceTarget(reduce);
+    },[targets])
 
     const {open} = useCompoundPopup();
     
@@ -94,16 +103,19 @@ export default function Calculation() {
                     <div className="flex flex-col gap-y-5 w-full">
                         <h1 className="text-big">Желаемая цель</h1>
                         <AddTargets setTargets={setTargets} targets={targets}/>
-                        <div className="flex max-w-lg flex-wrap gap-5 p-5">
-                            {targets.map((el,index)=>(
+                        <div className="flex max-w-lg  flex-wrap gap-5 p-5">
+                            {chunkArray(targets,5)[page-1].map((el,index)=>(
                                 <Target text={el} currentIndex={index} setTarget={setTargets} key={el+index}/>
                             ))}
+                        </div>
+                        <div className="flex justify-start">
+                            <Pagination onPageChange={setPage} currentPage={page} totalPageCount={reduceTarget.length}/>
                         </div>
                         <div>
                             <button className="rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" onClick={open}>Выбрать состав</button>
                         </div>
                         <ClassicCKEditor 
-                            data={"Описание и дополнительные комментарии к ожидаемому результату"}
+                            data={"Более детально опишите текущее состояние и желаемый результат. Добавьте фото и видео для точного формирования цены исполнителя."}
                             onChange={onCKChange}
                         />
                     </div>
@@ -134,7 +146,7 @@ function DesktopMenu({
     setActiveCategories: React.Dispatch<React.SetStateAction<string[]>>
 }) {
     return(
-    <div className="xl:flex hidden justify-between gap-x-5">
+    <div className="2xl:flex hidden justify-between gap-x-5">
         {categories.map((category)=>(
             <Category
                 key={category.name}
@@ -157,7 +169,7 @@ function PhomeMenu({
     setActiveCategories: React.Dispatch<React.SetStateAction<string[]>>
 }) {
     return (
-        <div className="xl:hidden">
+        <div className="2xl:hidden">
             <div className="flex flex-col w-full">
                 <Tab.Group>
                     <Tab.List className="flex space-x-1 rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5 gap-x-1 px-6 py-2 max-sm:px-2 border">

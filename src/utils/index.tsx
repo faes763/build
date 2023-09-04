@@ -5,6 +5,13 @@ export const changeRoot = async(name:string,property:string) =>{
     const body = document.body;
     body.style.setProperty('--' + name, property);
 }
+export function chunkArray(array: any[], size: number) {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
+}
 
 interface geo {
     asn: string
