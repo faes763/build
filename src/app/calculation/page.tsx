@@ -104,7 +104,7 @@ export default function Calculation() {
                         <h1 className="text-big">Желаемая цель</h1>
                         <AddTargets setTargets={setTargets} targets={targets}/>
                         <div className="flex max-w-lg  flex-wrap gap-5 p-5">
-                            {reduceTarget[page-1].map((el,index)=>(
+                            {reduceTarget.length != 0 && reduceTarget[page-1].map((el,index)=>(
                                 <Target text={el} currentIndex={index} setTarget={setTargets} key={el+index}/>
                             ))}
                         </div>
@@ -123,7 +123,10 @@ export default function Calculation() {
                         <h1 className="text-big">Список работ</h1>
                         <div className={` flex flex-col gap-y-5`}>
                             {works.map((work,index)=>(
-                                <div className="flex flex-col gap-y-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" key={work.name+index}>
+                                <div 
+                                    key={work.name+index}
+                                    className="flex flex-col gap-y-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" 
+                                >
                                     <p>{work.name}</p>
                                     <p className="text-right">Стомость - {work.price}</p>
                                 </div>
