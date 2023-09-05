@@ -173,7 +173,7 @@ export default function Calculation() {
                     </div>
                 </div>
                 <div className=" ml-auto">
-                    <button className=" bg-main-black  py-2 px-4 rounded-3xl text-white">Оформить заказ</button>
+                    <button className=" bg-main-black  py-2 px-8 rounded-3xl text-white">Оформить заказ</button>
                 </div>
             </div>
             <CompoundPopup/>

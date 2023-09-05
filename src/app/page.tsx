@@ -9,7 +9,7 @@ import Statistic from "@/components/landing-sections/statistic"
 export default function Home() {
   
   return (
-    <div className="flex flex-col gap-y-10 py-10">
+    <div id="about" className="flex flex-col gap-y-10  py-10">
       <About/>
       <Statistic/>
       <Cooperation/>

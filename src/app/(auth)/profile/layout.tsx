@@ -1,5 +1,6 @@
 'use client'
 import { Sprite } from "@/components/image/sprite"
+import { MyDropdown } from "@/components/profile/menu"
 import clsx from "clsx"
 import Link from "next/link"
 
@@ -41,6 +42,13 @@ const navLinks = [
       sprite: "blog",
     },
 ]
+
+export interface navLinkType {
+  name: string;
+  href: string;
+  sprite: string;
+}
+
 export default function ProfileLayout({
     children, // will be a page or nested layout
   }: {
@@ -51,29 +59,28 @@ export default function ProfileLayout({
   return (
       <main className="flex flex-col gap-y-10 py-5">
         <div className="container flex flex-col gap-y-5">
-            <div className="flex justify-between items-center ">
-                <button className="bg-main-black py-2 px-4 rounded-3xl text-white"><Link href={"/calculation"}>Оформить заказ</Link></button>
-                <a className="text-[#4281E0] underline" href="#">Баланс 14 124 124 ₽</a>
+            <div className="flex  md:justify-between justify-center items-center ">
+                <button className="hidden md:block bg-main-black py-2 px-4 rounded-3xl text-white"><Link href={"/calculation"}>Оформить заказ</Link></button>
+                <div className="lg:hidden">
+                  <MyDropdown nav={navLinks}/>
+                </div>
+                <a className="hidden md:block text-[#4281E0] underline" href="#">Баланс 14 124 124 ₽</a>
             </div>
-            <nav>
-                <ul className="flex gap-x-2 justify-between">
-                    {navLinks.map((link) => {
-                    const isActive = pathname === link.href
-            
-                    return (
-                    <li className="" key={link.name}>
-                        <Link
-                        className={clsx("flex items-center gap-x-2",isActive && "underline")}
-                        href={link.href}
-                        >
-                        <Sprite name={link.sprite} className={"w-8 h-8"}/>
-                        {link.name}
-                        </Link>
-                    </li>
-                    
-                    )
-                })}
+            <nav className="hidden lg:block">
+                <ul className="lg:flex  gap-x-2 justify-between">
+                    {navLinks.map((link:navLinkType) => (
+                      <li className="" key={link.name}>
+                          <Link
+                          className={clsx("flex items-center gap-x-2",pathname === link.href && "underline")}
+                          href={link.href}
+                          >
+                          <Sprite name={link.sprite} className={"w-8 h-8"}/>
+                          {link.name}
+                          </Link>
+                      </li>
+                    ))}
                 </ul>
+                
             </nav>
             {children}
         </div>

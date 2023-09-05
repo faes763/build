@@ -39,8 +39,8 @@ export default function About() {
       }, [currentPage]);
     
     return (
-        <section  id="about">
-            <div  className="container flex flex-col gap-y-5">
+        <section >
+            <div className="container flex flex-col gap-y-5">
             
                 <motion.h1 variants={{hidden: { opacity: 0,y: 20},visible: {  y: 0, opacity: 1 }}}  initial="hidden" animate="visible" className="text-big">Что мы представляем</motion.h1>
                 <div className="w-full relative max-sm:px-4 flex gap-x-10 shadow-md ring-1 ring-black ring-opacity-5 p-10 rounded-3xl my-5 max-xl:flex-col-reverse max-xl:items-center max-xl:gap-y-5">
