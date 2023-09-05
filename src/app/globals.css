@@ -18,6 +18,23 @@
   --ls: clamp(-1.75px, -0.25vw, -3.5px);
 }
 
+::-webkit-scrollbar {
+  width: 7px;
+
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 20px;
+
+}
+
+::-webkit-scrollbar-track {
+  background: #eeeeee;
+  border-radius: 20px;
+
+}
+
 .test {
   position: absolute;
   z-index: -10;
@@ -101,16 +118,28 @@ button {
 @media (max-width: 768px){
   .container {
       max-width: 640px;
+      padding-left: 25px;
+      padding-right: 25px;
   }
 }
 @media (max-width: 640px){
   .container {
       max-width: 548px;
-      padding-left: 5px;
-      padding-right: 5px;
+      padding-left: 15px;
+      padding-right: 15px;
   }
   .text-big {
     font-size: 28px;
+  }
+}
+@media (max-width: 320px){
+  .container {
+      max-width: 100%;
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+  .media {
+    flex-wrap: wrap;
   }
 }
 @media (min-width: 1024px){

@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import { NavigationEvents } from '@/components/utils';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar'; 
 import { QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import { ParallaxProvider } from "react-scroll-parallax";
+
 const queryClient = new QueryClient()
 export default function RootLayout({
   children,
