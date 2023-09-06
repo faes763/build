@@ -6,7 +6,7 @@ import Profile from "./header-components/menu/profile";
 import Burger from "./header-components/burger";
 import Link from "next/link";
 import { useBurger, useConnectPopup, useGeoPopup, useProfile } from "@/store/toggle-store";
-import ConnectWalletPopup from "./header-components/connect-wallet-popup";
+import ConnectWalletPopup from "./header-components/connect-popup";
 import { StatusAuthentication, useAuthorizationStore } from "@/store/authorization-store";
 import { LoadingButton } from "../buttons/loading-button";
 import { GeoPopup } from "./header-components/menu/geoPopup";

@@ -27,8 +27,8 @@ export default function ConnectWalletPopup() {
             <div className="backdrop-blur bg-black/[0.50] fixed inset-0" />
             </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center">
+        <div className="fixed md:inset-0 max-md:bottom-0 max-md:w-full overflow-y-auto">
+          <div className="flex md:min-h-full max-md:h-fit items-center justify-center text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -38,7 +38,7 @@ export default function ConnectWalletPopup() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full flex flex-col gap-y-5 px-10 max-w-[350px] p-8 transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full  flex flex-col gap-y-5 px-10 md:max-w-[350px] p-8 transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
                 <div>
                   <XMarkIcon onClick={()=>close()} className="w-6 h-6 ml-auto cursor-pointer"/>
                   <Dialog.Title
