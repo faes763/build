@@ -68,10 +68,10 @@ const Burger = () => {
                 >
                     <Popover.Panel
                         as="nav" 
-                        className={'absolute max-md:h-full md:px-4 max-md:fixed max-md:inset-0 z-10 mt-5 w-screen md:max-w-[350px] md:-translate-x-[85%] transform xl:px-4'}
+                        className={'absolute max-md:h-fit  md:px-4 max-md:fixed max-md:bottom-0 max-md:left-0 z-10 mt-5 w-screen md:max-w-[350px] md:-translate-x-[85%] transform xl:px-4'}
                         // className="=   max-w -translate-x-1/2 transform "
                     >
-                            <div className={`${montserrat.className} bg-white font-semibold  rounded-2xl flex flex-col gap-y-2 max-md:h-full shadow-lg ring-1 ring-black ring-opacity-5 p-4 max-sm:p-2`}>
+                            <div className={`${montserrat.className} bg-white font-semibold max-md:py-5 rounded-2xl flex flex-col gap-y-2 max-md:h-full shadow-lg ring-1 ring-black ring-opacity-5 p-4`}>
                                 <XMarkIcon onClick={close} className="w-6 h-6 ml-auto cursor-pointer"/>
                                 <Popover.Group 
                                     className={'flex justify-evenly'}
