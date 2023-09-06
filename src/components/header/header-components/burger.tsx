@@ -111,7 +111,6 @@ function StatusButton() {
     const {changeOpen,isOpen} = useConnectPopup();
     const {close}=useBurger();
 
-    console.log(status);
     if(status == StatusAuthentication.LOADING) return(
     <LoadingButton
         btnClasses=" flex items-center justify-center bg-main-black text-white rounded-3xl shadow-btn p-2 outline-0 duration-200 ease-out"

@@ -14,11 +14,11 @@ export function MyDropdown({
   const pathname = usePathname();
   return (
     <Menu>
-      <Menu.Button className={'flex items-center gap-x-2 text-2xl'}>
-        Меню
+      <Menu.Button className={'flex items-center gap-x-2 text-2xl relative'}>
+        ...
         <ChevronDownIcon className='w-5 h-5'/>
       </Menu.Button>
-      <Menu.Items className={'flex flex-col left-1/2 -translate-x-1/2 transform absolute border p-5 gap-y-2 max-w-[200px] rounded-2xl w-full'}>
+      <Menu.Items className={'flex flex-col -translate-y-full  transform absolute border  gap-y-2 max-w-xs top-0 p-5 rounded-2xl right-0'}>
       <div className="backdrop-blur bg-slate-200/[0.50] absolute inset-0 rounded-2xl"></div>
       {nav.map((link,index)=>(
         <Menu.Item key={link.name+index}>

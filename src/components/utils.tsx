@@ -8,8 +8,8 @@ import { geoLocation, getLocalStorage } from '@/utils'
 import { useQuery } from '@tanstack/react-query'
  
 export function NavigationEvents() {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const auth = useAuthorizationStore(); 
 
   useEffect(()=>{

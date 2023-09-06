@@ -1,4 +1,5 @@
 
+import Footer from "@/components/footer"
 import About from "@/components/landing-sections/about"
 import Cooperation from "@/components/landing-sections/cooperations"
 import Question from "@/components/landing-sections/question"
@@ -9,13 +10,17 @@ import Statistic from "@/components/landing-sections/statistic"
 export default function Home() {
   
   return (
-    <div id="about" className="flex flex-col gap-y-10  py-10">
-      <About/>
-      <Statistic/>
-      <Cooperation/>
-      <Reviews/>
-      <Question/>
-      <Start/>
-    </div>
+    <>
+      <div id="about" className="flex flex-col gap-y-10  py-10">
+        <About/>
+        <Statistic/>
+        <Cooperation/>
+        <Reviews/>
+        <Question/>
+        <Start/>
+      </div>
+      <Footer/>
+    </>
+    
   )
 }

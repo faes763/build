@@ -9,6 +9,7 @@ import { chunkArray } from "@/utils";
 import Pagination from "@/components/pagination";
 import { AddTargets, Target } from "@/components/calculation/targets";
 import { Category } from "@/components/calculation/category";
+import Footer from "@/components/footer";
 
 const ClassicCKEditor = dynamic(
     () => import("@/components/calculation/editor"),
@@ -122,62 +123,65 @@ export default function Calculation() {
         console.log("value", value);
       }, []);
     return (
-        <main>
-            <div className="container flex flex-col gap-y-5 py-5">
-                <h1 className="text-big">Детальное описание объекта</h1>
-                <p>Выберите название комнаты и ремонтируемую её часть.</p>
-                <input 
-                    required
-                    onChange={(e)=>setContent(e.target.value as string)}
-                    className="w-full max-w-sm bg-grey-lg py-1 px-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 border" 
-                    placeholder="Введите название комнаты"
-                />
-                <DesktopMenu activeCategories={activeCategories} setActiveCategories={setActiveCategories}/>
-                <PhomeMenu activeCategories={activeCategories} setActiveCategories={setActiveCategories}/>
-                <div className="flex justify-between gap-5 max-xl:flex-col">
-                    <div className="flex flex-col gap-y-5 w-full">
-                        <h1 className="text-big">Желаемая цель</h1>
-                        <AddTargets setTargets={setTargets} targets={targets}/>
-                        <div className="flex max-w-lg  flex-wrap gap-5 p-5">
-                            {reduceTarget.length != 0 && reduceTarget[page-1].map((el,index)=>(
-                                <Target setPage={setPage} text={el} currentIndex={page>1?index+((page-1)*5):index} reduceMap={reduceTarget[page-1]} setTarget={setTargets} key={el+index}/>
-                            ))}
+        <>
+            <main>
+                <div className="container flex flex-col gap-y-5 py-5">
+                    <h1 className="text-big">Детальное описание объекта</h1>
+                    <p>Выберите название комнаты и ремонтируемую её часть.</p>
+                    <input 
+                        required
+                        onChange={(e)=>setContent(e.target.value as string)}
+                        className="w-full max-w-sm bg-grey-lg py-1 px-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 border" 
+                        placeholder="Введите название комнаты"
+                    />
+                    <DesktopMenu activeCategories={activeCategories} setActiveCategories={setActiveCategories}/>
+                    <PhomeMenu activeCategories={activeCategories} setActiveCategories={setActiveCategories}/>
+                    <div className="flex justify-between gap-5 max-xl:flex-col">
+                        <div className="flex flex-col gap-y-5 w-full">
+                            <h1 className="text-big">Желаемая цель</h1>
+                            <AddTargets setTargets={setTargets} targets={targets}/>
+                            <div className="flex max-w-lg  flex-wrap gap-5 p-5">
+                                {reduceTarget.length != 0 && reduceTarget[page-1].map((el,index)=>(
+                                    <Target setPage={setPage} text={el} currentIndex={page>1?index+((page-1)*5):index} reduceMap={reduceTarget[page-1]} setTarget={setTargets} key={el+index}/>
+                                ))}
+                            </div>
+                            <div className="flex justify-start">
+                                <Pagination onPageChange={setPage} currentPage={page} totalPageCount={reduceTarget.length}/>
+                            </div>
+                            <div>
+                                <button className="rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" onClick={open}>Выбрать состав</button>
+                            </div>
+                            <div className=" max-h-60 overflow-y-scroll mt-5">
+                            <ClassicCKEditor 
+                                data={"Более детально опишите текущее состояние и желаемый результат. Добавьте фото и видео для точного формирования цены исполнителя."}
+                                onChange={onCKChange}
+                            />
+                            </div>
+                            
                         </div>
-                        <div className="flex justify-start">
-                            <Pagination onPageChange={setPage} currentPage={page} totalPageCount={reduceTarget.length}/>
+                        <div className="w-full">
+                            <h1 className="text-big">Список работ</h1>
+                            <div className={`snap-y snap-mandatory  md:max-h-[500px] max-h-[300px] overflow-y-scroll p-5 px-2 flex flex-col gap-y-5`}>
+                                {works.map((work,index)=>(
+                                    <div 
+                                        key={work.name+index}
+                                        className="flex snap-start flex-col gap-y-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" 
+                                    >
+                                        <p>{work.name}</p>
+                                        <p className="text-right">Стомость - {work.price}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <div>
-                            <button className="rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" onClick={open}>Выбрать состав</button>
-                        </div>
-                        <div className=" max-h-60 overflow-y-scroll mt-5">
-                        <ClassicCKEditor 
-                            data={"Более детально опишите текущее состояние и желаемый результат. Добавьте фото и видео для точного формирования цены исполнителя."}
-                            onChange={onCKChange}
-                        />
-                        </div>
-                        
                     </div>
-                    <div className="w-full">
-                        <h1 className="text-big">Список работ</h1>
-                        <div className={`snap-y snap-mandatory  md:max-h-[500px] max-h-[300px] overflow-y-scroll p-5 px-2 flex flex-col gap-y-5`}>
-                            {works.map((work,index)=>(
-                                <div 
-                                    key={work.name+index}
-                                    className="flex snap-start flex-col gap-y-2 rounded-3xl text-lg shadow-lg ring-1 ring-black ring-opacity-5 px-6 py-2 border" 
-                                >
-                                    <p>{work.name}</p>
-                                    <p className="text-right">Стомость - {work.price}</p>
-                                </div>
-                            ))}
-                        </div>
+                    <div className=" ml-auto">
+                        <button className=" bg-main-black  py-2 px-8 rounded-3xl text-white">Оформить заказ</button>
                     </div>
                 </div>
-                <div className=" ml-auto">
-                    <button className=" bg-main-black  py-2 px-8 rounded-3xl text-white">Оформить заказ</button>
-                </div>
-            </div>
-            <CompoundPopup/>
-        </main>
+                <CompoundPopup/>
+            </main>
+            <Footer/>
+        </>
     )
 }
 
